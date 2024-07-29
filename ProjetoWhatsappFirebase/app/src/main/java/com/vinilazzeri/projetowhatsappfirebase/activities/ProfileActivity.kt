@@ -1,4 +1,4 @@
-package com.vinilazzeri.projetowhatsappfirebase
+package com.vinilazzeri.projetowhatsappfirebase.activities
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
+import com.vinilazzeri.projetowhatsappfirebase.R
 import com.vinilazzeri.projetowhatsappfirebase.databinding.ActivityProfileBinding
 import com.vinilazzeri.projetowhatsappfirebase.utils.showMessage
 
@@ -47,49 +48,6 @@ class ProfileActivity : AppCompatActivity() {
         } else {
             showMessage("There ain't no images selected")
         }
-    }
-
-    private fun imgUploadStorage(url: Uri) {
-
-        val idUser =  firebaseAuth.currentUser?.uid
-        if (idUser != null){
-            //photos -> user -> id -> profile.jpg
-            storage
-                .getReference("photos")
-                .child("users")
-                .child("id")
-                .child("profile.jpg")
-                .putFile(url)
-                .addOnSuccessListener {
-                    showMessage("Image successfully uploaded!")
-                    it.metadata
-                        ?.reference
-                        ?.downloadUrl
-                        ?.addOnSuccessListener {
-
-                            val data = mapOf(
-                                "photo" to url.toString()
-                            )
-                            profileDataUpdate(idUser, data)
-                        }
-                }.addOnFailureListener {
-                    showMessage("Upload image error")
-                }
-        }
-    }
-
-    private fun profileDataUpdate(idUser: String, data: Map<String, String>) {
-
-        firestore
-            .collection("users")
-            .document(idUser)
-            .update(data)
-            .addOnSuccessListener {
-                showMessage("Profile successfully updated!")
-            }
-            .addOnFailureListener {
-                showMessage("Profile update failed")
-            }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,6 +94,51 @@ class ProfileActivity : AppCompatActivity() {
                 }
         }
     }
+
+    private fun imgUploadStorage(url: Uri) {
+
+        val idUser =  firebaseAuth.currentUser?.uid
+        if (idUser != null){
+            //photos -> user -> id -> profile.jpg
+            storage
+                .getReference("photos")
+                .child("users")
+                .child(idUser)
+                .child("profile.jpg")
+                .putFile(url)
+                .addOnSuccessListener {
+                    showMessage("Image successfully uploaded!")
+                    it.metadata
+                        ?.reference
+                        ?.downloadUrl
+                        ?.addOnSuccessListener {
+
+                            val data = mapOf(
+                                "photo" to it.toString()
+                            )
+                            profileDataUpdate(idUser, data)
+                        }
+                }.addOnFailureListener {
+                    showMessage("Upload image error")
+                }
+        }
+    }
+
+    private fun profileDataUpdate(idUser: String, data: Map<String, String>) {
+
+        firestore
+            .collection("users")
+            .document(idUser)
+            .update(data)
+            .addOnSuccessListener {
+                showMessage("Profile successfully updated!")
+            }
+            .addOnFailureListener {
+                showMessage("Profile update failed")
+            }
+    }
+
+
 
     private fun permissionsRequest() {
         // Verificar permissões de usuário

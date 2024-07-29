@@ -1,4 +1,4 @@
-package com.vinilazzeri.projetowhatsappfirebase
+package com.vinilazzeri.projetowhatsappfirebase.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.firestore.FirebaseFirestore
+import com.vinilazzeri.projetowhatsappfirebase.R
 import com.vinilazzeri.projetowhatsappfirebase.databinding.ActivitySignUpBinding
 import com.vinilazzeri.projetowhatsappfirebase.model.User
 import com.vinilazzeri.projetowhatsappfirebase.utils.showMessage

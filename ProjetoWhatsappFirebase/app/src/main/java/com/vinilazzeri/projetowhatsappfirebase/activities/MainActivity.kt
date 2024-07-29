@@ -1,4 +1,4 @@
-package com.vinilazzeri.projetowhatsappfirebase
+package com.vinilazzeri.projetowhatsappfirebase.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
+import com.vinilazzeri.projetowhatsappfirebase.R
 import com.vinilazzeri.projetowhatsappfirebase.adapters.ViewPagerAdapter
 import com.vinilazzeri.projetowhatsappfirebase.databinding.ActivityMainBinding
 

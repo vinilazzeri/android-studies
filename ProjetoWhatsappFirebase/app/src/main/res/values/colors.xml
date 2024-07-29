@@ -7,5 +7,6 @@
     <color name="primary_color">#0F8068</color>
     <color name="accent_color">#16A984</color>
     <color name="gray">#CECECE</color>
+    <color name="green_background_chat">#DBF9C4</color>
 
 </resources>
